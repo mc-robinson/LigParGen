@@ -1,11 +1,13 @@
 from __future__ import print_function
+
 import os
 import numpy as np
-import mol_boss
+from LigParGen import mol_boss
 import pandas as pd
 from collections import OrderedDict
-from fepzmat import BCC_file2zmat
-from CreatZmat import GenMolRep 
+
+from LigParGen.fepzmat import BCC_file2zmat
+from LigParGen.CreatZmat import GenMolRep 
 
 def VerifyMolandSave(mol,charge,resname):
     if mol is not None: 

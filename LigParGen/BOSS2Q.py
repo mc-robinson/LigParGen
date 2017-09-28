@@ -14,7 +14,8 @@ argparse
 numpy
 """
 
-from BOSSReader import bossPdbAtom2Element,bossElement2Mass,ucomb
+
+from LigParGen.BOSSReader import bossPdbAtom2Element,bossElement2Mass,ucomb
 import pickle
 import pandas as pd
 import numpy as np

@@ -10,9 +10,11 @@ Created on Wed Jun 14 2017
 @author: Leela Sriram Dodda
 @email:  leela.dodda@yale.edu
 """
+import LigParGen
+
 import os
 import numpy as np
-from Vector_algebra import pairing_func, angle, dihedral, tor_id, ang_id,bossElement2Num, Distance
+from LigParGen.Vector_algebra import pairing_func, angle, dihedral, tor_id, ang_id,bossElement2Num, Distance
 import itertools
 import collections
 import networkx as nx

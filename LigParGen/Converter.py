@@ -1,10 +1,10 @@
-from BOSSReader import BOSSReader, CheckForHs
-from BOSS2OPENMM import mainBOSS2OPM
-from BOSS2CHARMM import mainBOSS2CHARMM
-from BOSS2GMX import mainBOSS2GMX
-from BOSS2XPLOR import mainBOSS2XPLOR
-from BOSS2Q import mainBOSS2Q
-from CreatZmat import GenMolRep
+from LigParGen.BOSSReader import BOSSReader, CheckForHs
+from LigParGen.BOSS2OPENMM import mainBOSS2OPM
+from LigParGen.BOSS2CHARMM import mainBOSS2CHARMM
+from LigParGen.BOSS2GMX import mainBOSS2GMX
+from LigParGen.BOSS2XPLOR import mainBOSS2XPLOR
+from LigParGen.BOSS2Q import mainBOSS2Q
+from LigParGen.CreatZmat import GenMolRep
 import argparse
 import pickle
 import os
@@ -87,7 +87,11 @@ def convert(**kwargs):
     mol = options['mol']
     pdb = options['pdb']
 
-    optim = opt
+    if opt != None:
+        optim = opt
+    else:
+        optim = 0
+
     clu = False
     #charge = charge
     lbcc = False

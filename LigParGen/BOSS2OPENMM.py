@@ -13,10 +13,11 @@ pandas
 argparse
 numpy
 """
+
 from collections import OrderedDict
 #from BOSSReader import *
-from BOSSReader import Refine_PDB_file,get_coos_from_pdb
-from BOSSReader import ucomb,bossPdbAtom2Element,bossElement2Mass,tor_cent
+from LigParGen.BOSSReader import Refine_PDB_file,get_coos_from_pdb
+from LigParGen.BOSSReader import ucomb,bossPdbAtom2Element,bossElement2Mass,tor_cent
 import pickle
 import pandas as pd
 import numpy as np
