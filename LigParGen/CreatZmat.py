@@ -88,7 +88,7 @@ def make_graphs(atoms, coos, bonds):
     for (i, j, rij) in zip(bonds['BI'], bonds['BJ'], bonds['RIJ']):
         G.add_edge(i, j, distance=rij)
         G.add_edge(j, i, distance=rij)
-    all_paths = nx.all_pairs_shortest_path(G, cutoff=3)
+    all_paths = dict(nx.algorithms.all_pairs_shortest_path(G, cutoff=3))
     all_bonds = []
     all_imps = {}
     new_tors = []
@@ -105,7 +105,7 @@ def make_graphs(atoms, coos, bonds):
     dict_new_angs = {ang_id(t): t for t in new_angs}
     imp_keys = [n for n in G.nodes() if G.degree(n) / 2 == 3]
     for i in imp_keys:
-        nei = G.neighbors(i)
+        nei = list( G.neighbors(i))
         if G.node[i]['atno'] == 6:
             all_imps[i] = [nei[0], i, nei[1], nei[2]]
     MOL_ICOORDS = {'BONDS': all_bonds,
@@ -156,7 +156,7 @@ def print_ZMAT(atoms, G_mol, mol_icords, coos, zmat_name, resid):
     B_LINK = {}
     for i in G_mol.nodes():
         if n_ats > 0:
-            neigs = np.sort(G_mol.neighbors(i))
+            neigs = np.sort(list(G_mol.neighbors(i)))
             B_LINK[i] = neigs[0]
             Z_BONDS[i + 2] = (i + 2, neigs[0] + 2, G_mol[i]
                               [neigs[0]]['distance'])
@@ -165,7 +165,7 @@ def print_ZMAT(atoms, G_mol, mol_icords, coos, zmat_name, resid):
     A_LINK = {}
     for i in G_mol.nodes():
         if n_ats > 1:
-            neigs = np.sort(G_mol.neighbors(B_LINK[i]))
+            neigs = np.sort(list(G_mol.neighbors(B_LINK[i])))
             A_LINK[i] = neigs[0]
             ang = angle(coos[i], coos[B_LINK[i]], coos[neigs[0]])
             Z_ANGLES[i + 2] = (i + 2, B_LINK[i] + 2, neigs[0] + 2, ang)
@@ -173,7 +173,7 @@ def print_ZMAT(atoms, G_mol, mol_icords, coos, zmat_name, resid):
     n_ats = 0
     for i in G_mol.nodes():
         if n_ats > 2:
-            neigs = G_mol.neighbors(A_LINK[i])
+            neigs = list(G_mol.neighbors(A_LINK[i]))
             neigs = np.array([j for j in neigs if j not in [i, B_LINK[i], A_LINK[i]]])
             neigs = np.sort(neigs)
             neigs = neigs[neigs<i]
@@ -181,7 +181,7 @@ def print_ZMAT(atoms, G_mol, mol_icords, coos, zmat_name, resid):
 #            print(i,B_LINK[i], G_mol.neighbors(B_LINK[i]),A_LINK[i],G_mol.neighbors(A_LINK[i]))
             if len(neigs)<1:
 #               print('IM HERE')
-               neigs = [j for j in G_mol.neighbors(B_LINK[i]) if j not in [i,A_LINK[i]]]
+               neigs = [j for j in list(G_mol.neighbors(B_LINK[i])) if j not in [i,A_LINK[i]]]
 #               print(neigs)
             [ti, tj, tk, tl] = [i, B_LINK[i], A_LINK[i], neigs[0]]
             dihed = dihedral(coos[ti], coos[tj], coos[tk], coos[tl])
